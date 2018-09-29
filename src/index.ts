@@ -8,14 +8,17 @@ export async function handler(event, context) {
 }
 
 const makeAPR = async () => {
+  const branch =
+    "auto_" +
+    Math.random()
+      .toString(36)
+      .substring(7)
+
   const settings = {
     owner: "artsy",
     repo: "artsy.github.io",
-    fullBranchReference:
-      "heads/auto_" +
-      Math.random()
-        .toString(36)
-        .substring(7),
+    fullBaseBranch: "heads/source",
+    fullBranchReference: `heads/${branch}`,
     message: "Adds a new blog post",
   }
 
@@ -30,14 +33,30 @@ const makeAPR = async () => {
     token,
   })
 
-  const fileMap = {
-    "README.md": "hello, world",
-  }
+  const fortune = await generateFortune()
+  const deathStory = generateDeathStory(fortune)
+
+  const fileMap: any = {}
+  const now = new Date()
+  const filenameSafeFortune = fortune
+    .replace(/\s+/g, "-")
+    .replace(/[.,\/#!$%\^&\*;:{}=\_`~()]/g, "")
+    .toLowerCase()
+  const filename = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}-${filenameSafeFortune}`
+  fileMap[filename] = deathStory
 
   await filepathContentsMapToUpdateGitHubBranch(octokit, fileMap, settings)
+
+  await octokit.pullRequests.create({
+    base: "source",
+    head: branch,
+    owner: "artsy",
+    repo: "artsy.github.io",
+    title: fortune,
+  })
 }
 
-async function generateDeathStory() {
+function generateDeathStory(fortune: string) {
   const deathString = `
   Hello to you, my past self.
 
@@ -45,7 +64,7 @@ async function generateDeathStory() {
   in ${generateCountry()}. Having regrettably just crossed paths
   with ${generateCelebrity()}, I am now almost surely in my last
   moments of life. I know you never thought your life would end up
-  like this.. but even so, always remember: ${await generateFortune()}.`
+  like this...but even so, always remember: ${fortune}`
   return deathString
 }
 
@@ -70,9 +89,9 @@ function generateCelebrity() {
 }
 
 // Generates a fortune grabbed from a fortune-telling API.
-async function generateFortune() {
+async function generateFortune(): Promise<string> {
   const fortuneAPIURL = `http://yerkee.com/api/fortune`
   const response = await fetch(fortuneAPIURL)
   const json = await response.json()
-  return json
+  return json.fortune
 }
