@@ -1,3 +1,3 @@
-export default function hello() {
-  console.log("Hello World") // tslint:disable-line
+export function handler(event, context) {
+  context.succeed("hello world")
 }

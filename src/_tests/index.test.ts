@@ -1,7 +1,7 @@
-import hello from "../"
+import { handler } from "../"
 
-describe("hello", () => {
+describe("handler", () => {
   it("does something", () => {
-    hello()
+    handler("", "")
   })
 })

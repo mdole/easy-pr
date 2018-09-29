@@ -1,0 +1,7 @@
+{
+  "lambda": {
+    "role": "easy-pr-executor",
+    "name": "easy-pr",
+    "region": "us-east-1"
+  }
+}
