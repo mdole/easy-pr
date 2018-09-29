@@ -8,10 +8,14 @@ export async function handler(event, context) {
 
 const makeAPR = async () => {
   const settings = {
-    owner: "danger",
-    repo: "danger-js",
-    fullBranchReference: "heads/a_new_branch",
-    message: "Adds some new stuff",
+    owner: "artsy",
+    repo: "artsy.github.io",
+    fullBranchReference:
+      "heads/auto_" +
+      Math.random()
+        .toString(36)
+        .substring(7),
+    message: "Adds a new blog post",
   }
 
   const token = process.env.DANGER_GITHUB_API_TOKEN || process.env.GITHUB_API_TOKEN
