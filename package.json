@@ -8,6 +8,7 @@
   "devDependencies": {
     "@types/jest": "^23.3.2",
     "@types/node": "^10.11.0",
+    "@types/node-fetch": "^2.1.2",
     "danger": "^4.0.2",
     "husky": "^1.0.0",
     "jest": "^23.6.0",
@@ -53,6 +54,7 @@
   "dependencies": {
     "@octokit/rest": "^15.12.1",
     "claudia": "^5.1.2",
-    "memfs-or-file-map-to-github-branch": "^1.0.2"
+    "memfs-or-file-map-to-github-branch": "^1.0.2",
+    "node-fetch": "^2.2.0"
   }
 }
