@@ -53,6 +53,6 @@
   "dependencies": {
     "@octokit/rest": "^15.12.1",
     "claudia": "^5.1.2",
-    "memfs-or-file-map-to-github-branch": "^1.0.1"
+    "memfs-or-file-map-to-github-branch": "^1.0.2"
   }
 }
