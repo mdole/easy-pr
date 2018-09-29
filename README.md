@@ -1,5 +1,5 @@
 This project is a node app which runs via AWS Lambda. It receives a webhook
-from an AWS dash button and triggers generating a PR on [artsy/artsy.github.io](https://github.com/artsy/artsy.github.io)
+from an AWS dash button and triggers generating [a PR](https://github.com/orta/memfs-or-file-map-to-github-branch.git) on [artsy/artsy.github.io](https://github.com/artsy/artsy.github.io)
 
 Examples: 
 
